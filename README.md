@@ -1,16 +1,88 @@
-# React + Vite
+Esta es la aplicación frontend para el sistema de pedidos de comida rápida, construida con React y Vite. Consume la API Express en /api/productos y /api/pedidos para mostrar productos y gestionar órdenes.​​
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Características
+Lista de productos salvadoreños (yuca frita, papas, costillas) con descripciones.
 
-Currently, two official plugins are available:
+Páginas para Productos y Pedidos con Tailwind CSS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Consumo de API backend vía fetch/axios.
 
-## React Compiler
+Responsive design para móviles y desktop.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Tecnologías
+Frontend: React 18, Vite, Tailwind CSS 3
 
-## Expanding the ESLint configuration
+API Client: Fetch nativo (o axios)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Estilos: Tailwind CSS
+
+Deploy: Vercel
+
+Estructura del Proyecto
+text
+pedidos-frontend/
+├── public/
+├── src/
+│   ├── components/     # Productos.jsx, Pedidos.jsx
+│   ├── pages/          # Productos.jsx
+│   ├── App.jsx
+│   └── main.jsx
+├── dist/               # Build de producción
+├── package.json
+└── vite.config.js
+Instalación Local
+Clona el repositorio: git clone <tu-repo-frontend>
+
+Entra a la carpeta: cd pedidos-frontend
+
+Instala dependencias: npm install
+
+Inicia desarrollo: npm run dev
+
+Abre http://localhost:5173
+
+Asegúrate de que el backend Express corra en http://localhost:3000.​
+
+Uso en Desarrollo
+Productos: Muestra lista desde /api/productos
+
+Pedidos: Gestiona órdenes desde /api/pedidos
+
+Backend requerido: npm run dev en pedidos-backend
+
+Build para Producción
+bash
+npm run build
+Genera carpeta dist/ lista para Vercel o Netlify.
+
+Despliegue en Vercel
+Push a GitHub.
+
+En vercel.com: New Project → Importa repo.
+
+Configuración automática: Framework Preset = Vite, Build = npm run build, Output = dist.
+
+Deploy en segundos: https://pedidos-frontend.vercel.app
+
+Cambia URL de API en código: const API_URL = import.meta.env.VITE_API_URL || 'https://tu-backend.onrender.com'​
+
+Configuración de Variables de Entorno
+Crea .env en raíz:
+
+text
+VITE_API_URL=https://tu-api.onrender.com
+Solución de Problemas
+CORS error: Agrega CORS en backend Express.
+
+Tailwind no carga: Verifica tailwind.config.js y @tailwind en CSS.
+
+API no responde: Verifica backend en Render y variables Supabase.
+
+Conexión con Backend
+El frontend consume:
+
+GET /api/productos → Lista productos
+
+GET /api/pedidos → Lista pedidos
+
+¡Listo para producción! 🚀 Despliega frontend en Vercel y backend en Render.​

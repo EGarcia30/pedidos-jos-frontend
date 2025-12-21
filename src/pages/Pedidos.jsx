@@ -214,7 +214,7 @@ const guardarPedido = async () => {
 
         // Reset
         setShowModal(false);
-        setNuevoPedido({ cliente: '', direccion: '', estado: 'pendiente', total: 0 });
+        setNuevoPedido({ cliente: '', direccion: 'Despacho en local', estado: 'pendiente', total: 0 });
         setItemsPedido([]);
         fetchPedidos();
         //alert('¡Pedido creado con detalles!');

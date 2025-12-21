@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 const Dashboard = () => {
 const [stats, setStats] = useState({
@@ -17,7 +18,7 @@ useEffect(() => {
 const fetchStats = async (periodo) => {
     setLoading(true);
     try {
-    const response = await fetch(`http://localhost:3000/api/dashboard?periodo=${periodo}`);
+    const response = await fetch(`${apiUrl}/dashboard?periodo=${periodo}`);
     if (!response.ok) throw new Error('Error cargando dashboard');
     const data = await response.json();
     setStats(data.data || data);
@@ -56,8 +57,8 @@ return (
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
         <div>
-            <h1 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            📊 Dashboard
+            <h1 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text mb-2">
+            🤑 Dashboard
             </h1>
             <p className="text-xl text-gray-600 font-semibold">{getPeriodoTexto()}</p>
         </div>

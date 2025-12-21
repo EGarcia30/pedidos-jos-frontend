@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 const Pedidos = () => {
 const [pedidos, setPedidos] = useState([]);
@@ -26,7 +27,7 @@ const fetchDetallesPedido = async (pedidoId) => {
     try {
         setDetallesLoading(true);
         setDetallesPedido([]); // Limpia datos anteriores
-        const response = await fetch(`http://localhost:3000/api/pedidos/${pedidoId}/detalle`);
+        const response = await fetch(`${apiUrl}/pedidos/${pedidoId}/detalle`);
         
         if (!response.ok) {
         const errorData = await response.json();
@@ -48,7 +49,7 @@ const fetchDetallesPedido = async (pedidoId) => {
 // FUNCIÓN para marcar como entregado
 const marcarEntregado = async (pedidoId) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/pedidos/${pedidoId}/entregado`, {
+        const response = await fetch(`${apiUrl}/pedidos/${pedidoId}/entregado`, {
         method: 'PATCH'
         });
         if (!response.ok) throw new Error('Error actualizando estado');
@@ -67,7 +68,7 @@ useEffect(() => {
 
 const fetchPedidos = async () => {
     try {
-    const response = await fetch('http://localhost:3000/api/pedidos');
+    const response = await fetch(`${apiUrl}/pedidos`);
     if (!response.ok) throw new Error('Error en la API');
     const data = await response.json();
     setPedidos(data.data || data);
@@ -81,7 +82,7 @@ const fetchPedidos = async () => {
 const fetchProductos = async () => {
     try {
     setProductosLoading(true);
-    const response = await fetch('http://localhost:3000/api/productos');
+    const response = await fetch(`${apiUrl}/productos`);
     if (!response.ok) throw new Error('Error en productos');
     const data = await response.json();
     console.log('Productos cargados:', data); // DEBUG
@@ -145,8 +146,8 @@ const agregarProducto = (producto) => {
     };
 
 const removerProducto = (producto_id) => {
-setItemsPedido(itemsPedido.filter(item => item.producto_id !== producto_id));
-// useEffect se encarga del total
+    setItemsPedido(itemsPedido.filter(item => item.producto_id !== producto_id));
+    // useEffect se encarga del total
 };
 
 const guardarPedido = async () => {
@@ -160,8 +161,8 @@ const guardarPedido = async () => {
     }
 
     try {
-        // 1. Crear pedido principal
-        const pedidoResponse = await fetch('http://localhost:3000/api/pedidos', {
+        // 1. Crear pedido principals
+        const pedidoResponse = await fetch(`${apiUrl}/pedidos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -194,7 +195,7 @@ const guardarPedido = async () => {
 
         // 2. Crear detalles del pedido
         for (const item of itemsPedido) {
-        const detalleResponse = await fetch('http://localhost:3000/api/pedidos-detalle', {
+        const detalleResponse = await fetch(`${apiUrl}/pedidos-detalle`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -236,15 +237,18 @@ if (loading) return (
 
 return (
     <div className="container mx-auto p-6 min-h-screen bg-gray-50">
-    <div className="flex justify-between items-center mb-8 bg-white p-6 rounded-xl shadow-sm">
-        <h1 className="text-3xl font-bold text-gray-800">📋 Gestión de Pedidos</h1>
+    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-8 bg-white p-4 sm:p-6 rounded-xl shadow-sm">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 w-full sm:w-auto">
+            📋 Gestión de Pedidos
+        </h1>
         <button
-        onClick={() => setShowModal(true)}
-        className="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+            onClick={() => setShowModal(true)}
+            className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2.5 sm:px-8 sm:py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 text-sm sm:text-base whitespace-nowrap"
         >
-        ➕ Nuevo Pedido
+            ➕ Nuevo Pedido
         </button>
     </div>
+
 
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {pedidos.map(pedido => (

@@ -35,7 +35,7 @@ const NavBar = () => {
             to="/" 
             className="text-xl sm:text-2xl lg:text-2xl font-bold text-gray-800 flex items-center hover:scale-105 transition-transform"
           >
-            🍔 Pedidos Rápidos SV
+            📦 Pedidos Josselin
           </Link>
           
           {/* Botón Hamburguesa MÓVIL */}

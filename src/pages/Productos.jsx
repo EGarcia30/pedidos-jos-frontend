@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 const Productos = () => {
 const [productos, setProductos] = useState([]);
@@ -7,7 +8,7 @@ const [error, setError] = useState(null);
 
 useEffect(() => {
     // Fetch nativo a tu backend
-    fetch('http://localhost:3000/api/productos')
+    fetch(`${apiUrl}/productos`)
     .then(response => {
         if (!response.ok) throw new Error('Error en la API');
         return response.json();

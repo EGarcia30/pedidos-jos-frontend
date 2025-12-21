@@ -16,7 +16,7 @@ const [detallesLoading, setDetallesLoading] = useState(false);
 const [showModal, setShowModal] = useState(false);
 const [nuevoPedido, setNuevoPedido] = useState({
     cliente: '',
-    direccion: '',
+    direccion: 'Despacho en local',
     estado: 'pendiente',
     total: 0
 });
@@ -35,7 +35,7 @@ const fetchDetallesPedido = async (pedidoId) => {
         }
         
         const data = await response.json();
-        console.log('Detalles cargados:', data); // DEBUG
+        //console.log('Detalles cargados:', data); // DEBUG
         setDetallesPedido(data.data || data);
     } catch (error) {
         console.error('Error detalles:', error);
@@ -55,7 +55,7 @@ const marcarEntregado = async (pedidoId) => {
         if (!response.ok) throw new Error('Error actualizando estado');
         setShowDetalleModal(false);
         fetchPedidos(); // Refresca lista
-        alert('¡Pedido marcado como entregado!');
+        //alert('¡Pedido marcado como entregado!');
     } catch (error) {
         alert('Error: ' + error.message);
     }
@@ -85,7 +85,7 @@ const fetchProductos = async () => {
     const response = await fetch(`${apiUrl}/productos`);
     if (!response.ok) throw new Error('Error en productos');
     const data = await response.json();
-    console.log('Productos cargados:', data); // DEBUG
+    //console.log('Productos cargados:', data); // DEBUG
     setProductos(data.data || data);
     } catch (err) {
     console.error('Error productos:', err);
@@ -179,7 +179,7 @@ const guardarPedido = async () => {
         }
 
         const pedidoData = await pedidoResponse.json();
-        console.log('Respuesta pedido:', pedidoData); // DEBUG
+        //console.log('Respuesta pedido:', pedidoData); // DEBUG
         
         // ✅ PRUEBA ESTAS 3 OPCIONES según tu backend:
         const pedidoId = pedidoData.id || 
@@ -217,7 +217,7 @@ const guardarPedido = async () => {
         setNuevoPedido({ cliente: '', direccion: '', estado: 'pendiente', total: 0 });
         setItemsPedido([]);
         fetchPedidos();
-        alert('¡Pedido creado con detalles!');
+        //alert('¡Pedido creado con detalles!');
         
     } catch (error) {
         console.error('Error completo:', error);
@@ -392,204 +392,205 @@ return (
     </div>
     )}
 
-
-    {/* MODAL CORREGIDO */}
+    {/* Modal Nuevo Pedido */}
     {showModal && (
-        <div 
-        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-        onClick={(e) => e.target === e.currentTarget && setShowModal(false)}
-        >
-        <div className="bg-white rounded-3xl shadow-2xl max-w-6xl w-full max-h-[95vh] overflow-hidden">
-            <div className="p-8 border-b bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-t-3xl text-white">
-            <div className="flex items-center justify-between">
-                <div>
-                <h2 className="text-3xl font-bold">📝 Nuevo Pedido</h2>
-                <p className="text-blue-100">Selecciona productos y completa la información</p>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+            <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-w-sm sm:max-w-2xl lg:max-w-6xl w-full max-h-[95vh] overflow-hidden mx-2">
+            {/* HEADER RESPONSIVE */}
+            <div className="p-4 sm:p-6 sm:p-8 border-b bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-t-2xl sm:rounded-t-3xl text-white">
+                <div className="flex items-center justify-between">
+                <div className="flex-1 pr-4 sm:pr-0">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight">📝 Nuevo Pedido</h2>
+                    <p className="text-xs sm:text-sm text-blue-100 hidden sm:block">Selecciona productos y completa la información</p>
                 </div>
                 <button
-                onClick={() => setShowModal(false)}
-                className="p-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-2xl transition-all"
+                    onClick={() => setShowModal(false)}
+                    className="p-2 sm:p-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl sm:rounded-2xl transition-all flex-shrink-0"
                 >
-                ✕
+                    ✕
                 </button>
-            </div>
+                </div>
             </div>
 
-            <div className="p-8 overflow-y-auto max-h-[70vh]">
-            {/* DATOS CLIENTE */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div className="p-4 sm:p-6 sm:p-8 overflow-y-auto max-h-[70vh]">
+                {/* DATOS CLIENTE RESPONSIVE */}
+                <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <div>
-                <label className="block text-sm font-bold text-gray-700 mb-3">👤 Cliente (opcional)</label>
-                <input
+                    <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2 sm:mb-3 flex items-center">
+                    👤 Cliente (opcional)
+                    </label>
+                    <input
                     type="text"
                     value={nuevoPedido.cliente}
                     onChange={(e) => setNuevoPedido({ ...nuevoPedido, cliente: e.target.value })}
-                    className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition-all"
+                    className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition-all text-sm"
                     placeholder="Juan Pérez"
-                />
+                    />
                 </div>
                 <div>
-                <label className="block text-sm font-bold text-gray-700 mb-3">📍 Dirección *</label>
-                <input
+                    <label className="block text-xs sm:text-sm font-bold text-gray-700 mb-2 sm:mb-3 flex items-center">
+                    📍 Dirección *
+                    </label>
+                    <input
                     type="text"
                     value={nuevoPedido.direccion}
                     onChange={(e) => setNuevoPedido({ ...nuevoPedido, direccion: e.target.value })}
-                    className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition-all"
+                    className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition-all text-sm"
                     placeholder="Col. San Benito, Casa #123"
-                />
+                    />
                 </div>
-            </div>
+                </div>
 
-            {/* PRODUCTOS */}
-            <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center">
-                🍔 Productos Disponibles
-                <span className="ml-2 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                {/* PRODUCTOS RESPONSIVE */}
+                <div className="mb-6 sm:mb-8">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6 flex items-center flex-wrap gap-2">
+                    🍔 Productos Disponibles
+                    <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs sm:text-sm font-semibold">
                     {productos.length} disponibles
-                </span>
+                    </span>
                 </h3>
                 
                 {productosLoading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     {[1,2,3,4,5,6].map(i => (
-                    <div key={i} className="h-28 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse rounded-2xl p-4"></div>
+                        <div key={i} className="h-24 sm:h-28 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse rounded-xl sm:rounded-2xl p-3 sm:p-4"></div>
                     ))}
-                </div>
+                    </div>
                 ) : productos.length === 0 ? (
-                <div className="text-center py-12">
-                    <div className="w-24 h-24 bg-gray-200 rounded-2xl mx-auto mb-4 animate-pulse"></div>
-                    <p className="text-gray-500 text-lg">No hay productos disponibles</p>
-                </div>
+                    <div className="text-center py-8 sm:py-12">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gray-200 rounded-xl sm:rounded-2xl mx-auto mb-4 animate-pulse"></div>
+                    <p className="text-gray-500 text-base sm:text-lg">No hay productos disponibles</p>
+                    </div>
                 ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     {productos.map(producto => {
-                    const existe = itemsPedido.find(item => item.producto_id === producto.id);
-                    return (
+                        const existe = itemsPedido.find(item => item.producto_id === producto.id);
+                        return (
                         <div
-                        key={producto.id}
-                        className={`group border-2 rounded-2xl p-6 cursor-pointer transition-all hover:shadow-xl hover:scale-105 h-full ${
+                            key={producto.id}
+                            className={`group border-2 rounded-xl sm:rounded-2xl p-4 sm:p-6 cursor-pointer transition-all hover:shadow-xl hover:scale-105 h-full ${
                             existe
-                            ? 'border-green-400 bg-green-50 shadow-lg'
-                            : 'border-gray-200 hover:border-blue-400 hover:bg-blue-50'
-                        }`}
-                        onClick={() => agregarProducto(producto)}
+                                ? 'border-green-400 bg-green-50 shadow-lg'
+                                : 'border-gray-200 hover:border-blue-400 hover:bg-blue-50'
+                            }`}
+                            onClick={() => agregarProducto(producto)}
                         >
-                        <div className="space-y-2">
-                            <h4 className="font-bold text-lg text-gray-800 group-hover:text-blue-700">
-                            {producto.nombre}
+                            <div className="space-y-2">
+                            <h4 className="font-bold text-base sm:text-lg text-gray-800 group-hover:text-blue-700 line-clamp-2">
+                                {producto.nombre}
                             </h4>
-                            <p className="text-2xl font-black text-green-600">
-                            ${parseFloat(producto.precio_venta || 0).toFixed(2)}
+                            <p className="text-xl sm:text-2xl font-black text-green-600">
+                                ${parseFloat(producto.precio_venta || 0).toFixed(2)}
                             </p>
-                            <p className="text-sm text-gray-600">
-                            📦 Stock: {parseInt(producto.cantidad_disponible || 0)}
+                            <p className="text-xs sm:text-sm text-gray-600 flex items-center">
+                                📦 Stock: {parseInt(producto.cantidad_disponible || 0)}
                             </p>
                             {existe && (
-                            <div className="flex items-center mt-2">
+                                <div className="flex items-center mt-2">
                                 <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                                <span className="text-sm font-semibold text-green-700">
-                                Agregado (x{existe.cantidad_vendida})
+                                <span className="text-xs sm:text-sm font-semibold text-green-700">
+                                    Agregado (x{existe.cantidad_vendida})
                                 </span>
-                            </div>
+                                </div>
                             )}
+                            </div>
                         </div>
-                        </div>
-                    );
+                        );
                     })}
-                </div>
+                    </div>
                 )}
-            </div>
+                </div>
 
-            {/* ITEMS SELECCIONADOS */}
-            {itemsPedido.length > 0 && (
-                <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-800 mb-6">
+                {/* ITEMS SELECCIONADOS RESPONSIVE */}
+                {itemsPedido.length > 0 && (
+                <div className="mb-6 sm:mb-8">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6 flex items-center">
                     🛒 Resumen del Pedido ({itemsPedido.length} items)
-                </h3>
-                <div className="space-y-4">
+                    </h3>
+                    <div className="space-y-3 sm:space-y-4">
                     {itemsPedido.map(item => (
-                    <div key={item.producto_id} className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border-2 border-blue-100 shadow-sm">
-                        <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                            <h4 className="font-bold text-lg text-gray-800 mb-1">{item.nombre}</h4>
-                            <p className="text-sm text-gray-600 mb-2">
-                            Unit: ${item.precio_venta.toFixed(2)} x {item.cantidad_vendida}
+                        <div key={item.producto_id} className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 sm:p-6 rounded-xl sm:rounded-2xl border-2 border-blue-100 shadow-sm">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                            <div className="flex-1">
+                            <h4 className="font-bold text-base sm:text-lg text-gray-800 mb-1 line-clamp-1">{item.nombre}</h4>
+                            <p className="text-xs sm:text-sm text-gray-600 mb-2">
+                                Unit: ${item.precio_venta.toFixed(2)} x {item.cantidad_vendida}
                             </p>
-                        </div>
-                        <div className="flex items-center space-x-2">
+                            </div>
+                            <div className="flex items-center space-x-1 sm:space-x-2 w-full sm:w-auto">
                             <button
-                            onClick={() => cambiarCantidad(item.producto_id, item.cantidad_vendida - 1)}
-                            className="w-12 h-12 bg-red-100 hover:bg-red-200 text-red-600 font-bold text-xl rounded-2xl transition-all shadow-sm hover:shadow-md flex items-center justify-center"
+                                onClick={() => cambiarCantidad(item.producto_id, item.cantidad_vendida - 1)}
+                                className="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 hover:bg-red-200 text-red-600 font-bold text-lg sm:text-xl rounded-xl sm:rounded-2xl transition-all shadow-sm hover:shadow-md flex items-center justify-center flex-shrink-0"
                             >
-                            −
+                                −
                             </button>
-                            <span className="w-16 text-center text-2xl font-black bg-white px-4 py-2 rounded-xl shadow-md">
-                            {item.cantidad_vendida}
+                            <span className="w-14 sm:w-16 text-center text-xl sm:text-2xl font-black bg-white px-3 py-1.5 sm:py-2 rounded-xl sm:rounded-xl shadow-md flex-shrink-0 min-w-[3rem]">
+                                {item.cantidad_vendida}
                             </span>
                             <button
-                            onClick={() => cambiarCantidad(item.producto_id, item.cantidad_vendida + 1)}
-                            className="w-12 h-12 bg-green-100 hover:bg-green-200 text-green-600 font-bold text-xl rounded-2xl transition-all shadow-sm hover:shadow-md flex items-center justify-center"
+                                onClick={() => cambiarCantidad(item.producto_id, item.cantidad_vendida + 1)}
+                                className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 hover:bg-green-200 text-green-600 font-bold text-lg sm:text-xl rounded-xl sm:rounded-2xl transition-all shadow-sm hover:shadow-md flex items-center justify-center flex-shrink-0"
                             >
-                            +
+                                +
                             </button>
                             <button
-                            onClick={() => removerProducto(item.producto_id)}
-                            className="ml-4 w-12 h-12 bg-red-100 hover:bg-red-200 text-red-600 rounded-2xl transition-all shadow-sm hover:shadow-md flex items-center justify-center"
-                            title="Eliminar"
+                                onClick={() => removerProducto(item.producto_id)}
+                                className="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 hover:bg-red-200 text-red-600 rounded-xl sm:rounded-2xl transition-all shadow-sm hover:shadow-md flex items-center justify-center flex-shrink-0 ml-1 sm:ml-4"
+                                title="Eliminar"
                             >
-                            🗑️
+                                🗑️
                             </button>
-                        </div>
-                        <div className="text-right ml-6">
-                            <p className="text-2xl font-bold text-green-600">
-                            ${item.subtotal.toFixed(2)}
+                            </div>
+                            <div className="text-right sm:ml-0">
+                            <p className="text-xl sm:text-2xl font-bold text-green-600">
+                                ${item.subtotal.toFixed(2)}
                             </p>
+                            </div>
                         </div>
                         </div>
-                    </div>
                     ))}
+                    </div>
                 </div>
-                </div>
-            )}
+                )}
 
-            {/* TOTAL FINAL */}
-            <div className="bg-gradient-to-r from-emerald-50 to-green-50 p-8 rounded-3xl border-4 border-green-100 shadow-2xl">
-                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
-                <div className="flex flex-col items-start">
-                    <p className="text-5xl font-black text-green-600 tracking-wide">
-                    ${nuevoPedido.total.toFixed(2)}
+                {/* TOTAL FINAL RESPONSIVE */}
+                <div className="bg-gradient-to-r from-emerald-50 to-green-50 p-6 sm:p-8 rounded-2xl sm:rounded-3xl border-4 border-green-100 shadow-2xl">
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0 gap-4">
+                    <div className="flex flex-col items-start text-center sm:text-left">
+                    <p className="text-3xl sm:text-4xl lg:text-5xl font-black text-green-600 tracking-wide leading-tight">
+                        ${nuevoPedido.total.toFixed(2)}
                     </p>
-                    <p className="text-lg text-gray-600 mt-2">
-                    {itemsPedido.length} {itemsPedido.length === 1 ? 'producto' : 'productos'}
+                    <p className="text-base sm:text-lg text-gray-600 mt-1 sm:mt-2">
+                        {itemsPedido.length} {itemsPedido.length === 1 ? 'producto' : 'productos'}
                     </p>
-                </div>
-                <div className="flex space-x-4 w-full lg:w-auto lg:ml-8">
+                    </div>
+                    <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 w-full lg:w-auto">
                     <button
-                    onClick={() => {
+                        onClick={() => {
                         setShowModal(false);
                         setTimeout(() => {
-                        setNuevoPedido({ cliente: '', direccion: '', estado: 'pendiente', total: 0 });
-                        setItemsPedido([]);
+                            setNuevoPedido({ cliente: '', direccion: '', estado: 'pendiente', total: 0 });
+                            setItemsPedido([]);
                         }, 200);
-                    }}
-                    className="flex-1 lg:flex-none px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-2xl font-bold hover:bg-gray-50 hover:shadow-md transition-all shadow-sm text-lg"
+                        }}
+                        className="px-6 py-3 sm:px-8 sm:py-4 border-2 border-gray-300 text-gray-700 rounded-xl sm:rounded-2xl font-bold hover:bg-gray-50 hover:shadow-md transition-all shadow-sm text-sm sm:text-lg flex-1 sm:flex-none"
                     >
-                    ❌ Cancelar
+                        ❌ Cancelar
                     </button>
                     <button
-                    onClick={guardarPedido}
-                    disabled={itemsPedido.length === 0 || !nuevoPedido.direccion.trim()}
-                    className="flex-1 lg:flex-none px-10 py-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-2xl font-black text-lg shadow-2xl hover:shadow-3xl hover:scale-105 transition-all transform disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+                        onClick={guardarPedido}
+                        disabled={itemsPedido.length === 0 || !nuevoPedido.direccion.trim()}
+                        className="px-6 py-3 sm:px-10 sm:py-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-xl sm:rounded-2xl font-black text-sm sm:text-lg shadow-2xl hover:shadow-3xl hover:scale-105 transition-all transform disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none flex-1 sm:flex-none"
                     >
-                    ✅ Crear Pedido
+                        ✅ Crear Pedido
                     </button>
+                    </div>
                 </div>
                 </div>
             </div>
             </div>
         </div>
-        </div>
-    )}
+        )}
     </div>
 );
 };

@@ -569,7 +569,7 @@ return (
                         onClick={() => {
                         setShowModal(false);
                         setTimeout(() => {
-                            setNuevoPedido({ cliente: '', direccion: '', estado: 'pendiente', total: 0 });
+                            setNuevoPedido({ cliente: '', direccion: 'Despacho en local', estado: 'pendiente', total: 0 });
                             setItemsPedido([]);
                         }, 200);
                         }}

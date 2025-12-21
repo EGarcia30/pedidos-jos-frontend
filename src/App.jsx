@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';  // ← IMPORT CORRECTO
-import Productos from './pages/productos';
-import Pedidos from './pages/pedidos';
-import Dashboard from './pages/dashboard';
+import Dashboard from './pages/Dashboard.jsx';
+import Productos from './pages/Productos.jsx';
+import Pedidos from './pages/Pedidos.jsx';
 import './index.css';
 
 function App() {

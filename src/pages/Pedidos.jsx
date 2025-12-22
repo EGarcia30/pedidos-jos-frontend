@@ -404,7 +404,13 @@ return (
                     <p className="text-xs sm:text-sm text-blue-100 hidden sm:block">Selecciona productos y completa la información</p>
                 </div>
                 <button
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                        setShowModal(false);
+                        setTimeout(() => {
+                            setNuevoPedido({ cliente: '', direccion: 'Despacho en local', estado: 'pendiente', total: 0 });
+                            setItemsPedido([]);
+                        }, 200);
+                    }}
                     className="p-2 sm:p-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl sm:rounded-2xl transition-all flex-shrink-0"
                 >
                     ✕

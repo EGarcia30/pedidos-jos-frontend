@@ -201,42 +201,42 @@ const Dashboard = () => {
                         <p className="text-sm text-gray-600 uppercase tracking-wide">Ticket Promedio</p>
                     </div>
                     </div>
+                </div>                    
                 </div>
-                    <div className="mt-12">
-                        <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                            🏆 <span>Top Productos Vendidos</span>
-                        </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {productosVendidos.map((producto) => (
-                                <div key={producto.id} className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-all hover:-translate-y-2 border border-white/50 group">
-                                    <div className="flex items-start justify-between mb-4">
-                                        <div className="p-4 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl group-hover:scale-110 transition-transform">
-                                            <span className="text-3xl">🛍️</span>
-                                        </div>
-                                        <div className="text-right">
-                                            <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold">
-                                                {producto.cantidad_vendida} vendidos
-                                            </span>
-                                        </div>
+                <div className="mt-12">
+                    <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        🏆 <span>Top Productos Vendidos</span>
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {productosVendidos.map((producto) => (
+                            <div key={producto.id} className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-all hover:-translate-y-2 border border-white/50 group">
+                                <div className="flex items-start justify-between mb-4">
+                                    <div className="p-4 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl group-hover:scale-110 transition-transform">
+                                        <span className="text-3xl">🛍️</span>
                                     </div>
-                                    <h4 className="font-bold text-xl text-gray-900 mb-2 truncate">{producto.nombre}</h4>
-                                    <p className="text-2xl font-black text-emerald-600 mb-2">
-                                        ${parseFloat(producto.total_vendido || 0).toFixed(2)}
-                                    </p>
-                                    <p className="text-sm text-gray-600 flex items-center gap-1">
-                                        <span className="text-emerald-500">💰</span>
-                                        {producto.cantidad_vendida} x ${producto.precio_venta}
-                                    </p>
+                                    <div className="text-right">
+                                        <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold">
+                                            {producto.cantidad_vendida} vendidos
+                                        </span>
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
-                        {productosVendidos.length === 0 && (
-                            <div className="text-center py-12 text-gray-500">
-                                <span className="text-4xl mb-4">📦</span>
-                                <p>No hay ventas en este período</p>
+                                <h4 className="font-bold text-xl text-gray-900 mb-2 truncate">{producto.nombre}</h4>
+                                <p className="text-2xl font-black text-emerald-600 mb-2">
+                                    ${parseFloat(producto.total_vendido || 0).toFixed(2)}
+                                </p>
+                                <p className="text-sm text-gray-600 flex items-center gap-1">
+                                    <span className="text-emerald-500">💰</span>
+                                    {producto.cantidad_vendida} x ${producto.precio_venta}
+                                </p>
                             </div>
-                        )}
+                        ))}
                     </div>
+                    {productosVendidos.length === 0 && (
+                        <div className="text-center py-12 text-gray-500">
+                            <span className="text-4xl mb-4">📦</span>
+                            <p>No hay ventas en este período</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

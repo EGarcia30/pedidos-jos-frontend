@@ -221,7 +221,7 @@ const Dashboard = () => {
                                     </div>
                                     <h4 className="font-bold text-xl text-gray-900 mb-2 truncate">{producto.nombre}</h4>
                                     <p className="text-2xl font-black text-emerald-600 mb-2">
-                                        ${producto.total_vendido.toFixed(2)}
+                                        ${parseFloat(producto.total_vendido || 0).toFixed(2)}
                                     </p>
                                     <p className="text-sm text-gray-600 flex items-center gap-1">
                                         <span className="text-emerald-500">💰</span>
